@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<substitutionProperty name="logbackHome" value="E:\\Logs\\assetManager" /><!-- 定义输出路径变量 -->  
+	<!-- 按照每天生成日志文件 -->
+
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80}[%L] - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</layout>
+	</appender>
+
+
+	<!-- All INFO -->
+	<appender name="FILELOG-AllINFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+	    <Prudent>true</Prudent>
+	    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+          <level>INFO</level>
+        </filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logbackHome}/info%d{yyyy-MM-dd'.log'}</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread]  %-5level %logger{80}[%L] - %msg%n</Pattern>
+		</layout>
+	</appender>
+	
+	<!-- All ERROR -->
+	<appender name="FILELOG-AllERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+	    <Prudent>true</Prudent>
+	    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+          <level>ERROR</level>
+        </filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logbackHome}/error%d{yyyy-MM-dd'.log'}</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread]  %-5level %logger{80}[%L] - %msg%n</Pattern>
+		</layout>
+	</appender>
+	  
+	<logger name="org.apache.commons.validator.ValidatorResources" level="ERROR" />
+	<logger name="org.springframework" level="INFO" />
+    <logger name="org.springframework.ui.freemarker" level="INFO" />
+	<logger name="net.sf.ehcache" level="ERROR" />
+	<logger name="com.opensymphony.xwork2" level="ERROR" />
+	<logger name="org.hibernate" level="ERROR" />
+	<logger name="org.hibernate.SQL" level="ERROR" />
+	<logger name="freemark" level="ERROR" />
+	<logger name="java.sql.PreparedStatement" level="ERROR" />  
+    <logger name="org.apache.tomcat" level="ERROR" />  
+	<logger name="org.hibernate.cache" level="ERROR" />
+
+	 <root level="DEBUG">
+	 	<appender-ref ref="WFENGINE"/>
+	  	<appender-ref ref="STDOUT"/>  
+        <appender-ref ref="FILELOG-AllINFO"/>
+        <appender-ref ref="FILELOG-AllERROR"/>
+    </root> 
+</configuration>
